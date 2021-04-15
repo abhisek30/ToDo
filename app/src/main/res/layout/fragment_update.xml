@@ -8,7 +8,7 @@
     tools:context=".fragments.update.UpdateFragment">
 
     <EditText
-        android:id="@+id/current_title_editTextText"
+        android:id="@+id/current_title_editText"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:autofillHints="@string/title"
@@ -35,10 +35,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_title_editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/current_title_editText" />
 
     <EditText
-        android:id="@+id/current_description_editTextText"
+        android:id="@+id/current_description_editText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
