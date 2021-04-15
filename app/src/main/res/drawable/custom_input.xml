@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Design for a update fragment layout(in fragment_update.xml) to display different from add fragment-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true" android:state_enabled="true">
         <shape android:shape="rectangle">
