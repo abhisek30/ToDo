@@ -2,11 +2,8 @@ package com.example.todo.fragments.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo.R
-import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
 import com.example.todo.databinding.RowLayoutBinding
 
@@ -14,21 +11,21 @@ import com.example.todo.databinding.RowLayoutBinding
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     //list of toDoData
-    private var datalist = emptyList<ToDoData>()
+    var datalist = emptyList<ToDoData>()
 
     //will extend RecyclerView.ViewHolder ,pass view parameters which represents row layout
-    class MyViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+    class MyViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         //binding function for toDoData object
-        fun bind(toDoData: ToDoData){
+        fun bind(toDoData: ToDoData) {
             binding.todoData = toDoData
             binding.executePendingBindings()
         }
 
         //returning view binding
-        companion object{
+        companion object {
             fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RowLayoutBinding.inflate(layoutInflater,parent,false)
+                val binding = RowLayoutBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }
@@ -53,10 +50,13 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     //getting parameters of list todoData
-    fun setData(toDoData:List<ToDoData>){
+    fun setData(toDoData: List<ToDoData>) {
+        //diffUtil variables
+        val toDoDiffUtil = ToDoDiffUtil(datalist, toDoData)
+        val toDoDiffUtilResult = DiffUtil.calculateDiff(toDoDiffUtil)
         //set toDoData list of parameters to toDoData from ListAdapter
         this.datalist = toDoData
-        //and notify the changes
-        notifyDataSetChanged()
+        //and notify the changes to diffutil
+        toDoDiffUtilResult.dispatchUpdatesTo(this)
     }
 }

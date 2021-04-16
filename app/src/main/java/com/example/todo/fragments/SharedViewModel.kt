@@ -13,23 +13,30 @@ import com.example.todo.data.models.Priority
 import com.example.todo.data.models.ToDoData
 
 //as these two function will be used by add and update fragment so putting them inside sharedViewModel
-class SharedViewModel(application: Application):AndroidViewModel(application) {
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     //mutable Livedata object for checking database is empty or not
-    val emptyDatabase:MutableLiveData<Boolean> = MutableLiveData(true)
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
+
     //function to check database is empty or not
-    fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
+    fun checkIfDatabaseEmpty(toDoData: List<ToDoData>) {
         emptyDatabase.value = toDoData.isEmpty()
     }
 
     //logic to display colored spinner
-    val listener:AdapterView.OnItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
+    val listener: AdapterView.OnItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         //override these two functions required for object
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            when(position){
-                0 -> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red))}
-                1 -> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow))}
-                2 -> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green))}
+            when (position) {
+                0 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red))
+                }
+                1 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow))
+                }
+                2 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green))
+                }
             }
         }
 
@@ -40,32 +47,26 @@ class SharedViewModel(application: Application):AndroidViewModel(application) {
     }
 
     //fun to verify data from user
-    fun verifyDataFromUser(title:String,description:String):Boolean{
+    fun verifyDataFromUser(title: String, description: String): Boolean {
         //if fields are empty return false else true
-        return if(TextUtils.isEmpty(title) || TextUtils.isEmpty(description)){
+        return if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
             false
         } else !(title.isEmpty() || description.isEmpty())
     }
 
     //to get back string priority into priority object
     fun parsePriority(priority: String): Priority {
-        return when(priority){
+        return when (priority) {
             "High Priority" -> {
-                Priority.HIGH}
+                Priority.HIGH
+            }
             "Medium Priority" -> {
-                Priority.MEDIUM}
+                Priority.MEDIUM
+            }
             "Low Priority" -> {
-                Priority.LOW}
+                Priority.LOW
+            }
             else -> Priority.LOW
-        }
-    }
-
-    //function to parsePriority into int
-    fun parsePriorityToInt(priority: Priority):Int{
-        return  when(priority){
-            Priority.HIGH -> 0
-            Priority.MEDIUM -> 1
-            Priority.LOW -> 2
         }
     }
 }
