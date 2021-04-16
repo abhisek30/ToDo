@@ -10,11 +10,11 @@ import kotlinx.android.parcel.Parcelize
 //Making toDoData parcelable so that to use safeargs between fragments
 @Entity(tableName = "todo_table")
 @kotlinx.parcelize.Parcelize
-data class ToDoData (
+data class ToDoData(
         //to generate unique id for var id
         @PrimaryKey(autoGenerate = true)
-        var id:Int,
-        var title:String,
+        var id: Int,
+        var title: String,
         var priority: Priority,
         var description: String
-        ):Parcelable
+) : Parcelable

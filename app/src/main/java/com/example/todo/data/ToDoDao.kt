@@ -11,7 +11,7 @@ interface ToDoDao {
     //Custom query to display all data from todo_table with id as ascending order
     //this query will return type of list(TodoData) wrapped inside LiveData
     @Query("SELECT * FROM todo_table ORDER BY id ASC")
-    fun getAllData():LiveData<List<ToDoData>>
+    fun getAllData(): LiveData<List<ToDoData>>
 
     //predefined Insert Query to insert data
     //if new data is same as the data we already have in db then ignore the conflict by passing arguments.
@@ -30,4 +30,16 @@ interface ToDoDao {
     //custom query to delete all data from table
     @Query("DELETE FROM todo_table")
     suspend fun deleteAll()
+
+    //custom query to search data from database
+    @Query("SELECT * FROM TODO_TABLE WHERE title LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>>
+
+    //custom query to sort the data according to high priority in database
+    @Query("SELECT * FROM todo_table ORDER BY CASE WHEN priority LIKE 'H%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'L%' THEN 3 END")
+    fun sortByHighPriority(): LiveData<List<ToDoData>>
+
+    //custom query to sort the data according to low priority in database
+    @Query("SELECT * FROM todo_table ORDER BY CASE WHEN priority LIKE 'L%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'H%' THEN 3 END")
+    fun sortByLowPriority(): LiveData<List<ToDoData>>
 }

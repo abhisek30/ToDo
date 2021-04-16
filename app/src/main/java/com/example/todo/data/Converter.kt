@@ -8,7 +8,7 @@ class Converter {
     //to notify ROOM as it use Typeconverter
     //for writing to DB
     @TypeConverter
-    fun fromPriority(priority: Priority):String{
+    fun fromPriority(priority: Priority): String {
         return priority.name    //will return HIGH,MEDIUM OR LOW as String
     }
 
