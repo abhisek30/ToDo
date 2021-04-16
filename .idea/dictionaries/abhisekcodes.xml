@@ -2,9 +2,12 @@
   <dictionary name="abhisekcodes">
     <words>
       <w>datalist</w>
+      <w>diffutil</w>
       <w>dodao</w>
       <w>edittext</w>
       <w>livedata</w>
+      <w>mshared</w>
+      <w>snackbar</w>
     </words>
   </dictionary>
 </component>
